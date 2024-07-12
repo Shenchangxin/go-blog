@@ -14,6 +14,7 @@ type BaseModel struct {
 }
 type User struct {
 	BaseModel
+	UserName string `gorm:"type:varchar(20)"`
 	Phone    string `gorm:"index:idx_phone;unique;type;varchar(11);not null"`
 	Password string `gorm:"type:varchar(100);not null"`
 	NickName string `gorm:"type:varchar(20)"`
