@@ -1,0 +1,5 @@
+name: user-srv
+port: 50051
+redis:
+  host: 192.168.24.5
+  port: 6379

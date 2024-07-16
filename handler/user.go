@@ -33,7 +33,7 @@ func Paginate(pageNum, pageSize int) func(db *gorm.DB) *gorm.DB {
 	}
 }
 
-func (*UserServer) GetUserList(ctx context.Context, req *proto.PageInfo) (*proto.UserListResponse, error) {
+func (*UserServer) GetUserList(ctx *context.Context, req *proto.PageInfo) (*proto.UserListResponse, error) {
 	//获取用户列表
 	var users []model.User
 	result := global.DB.Find(&users)
@@ -51,7 +51,7 @@ func (*UserServer) GetUserList(ctx context.Context, req *proto.PageInfo) (*proto
 	return rsp, nil
 }
 
-func (*UserServer) GetUserByUserName(ctx context.Context, req *proto.UserNameRequest) (*proto.UserInfoResponse, error) {
+func (*UserServer) GetUserByUserName(ctx *context.Context, req *proto.UserNameRequest) (*proto.UserInfoResponse, error) {
 	var user model.User
 	result := global.DB.Where(&model.User{
 		UserName: req.Username,
@@ -66,7 +66,7 @@ func (*UserServer) GetUserByUserName(ctx context.Context, req *proto.UserNameReq
 	return &userInfoRes, nil
 }
 
-func (*UserServer) GetUserById(ctx context.Context, req *proto.IdRequest) (*proto.UserInfoResponse, error) {
+func (*UserServer) GetUserById(ctx *context.Context, req *proto.IdRequest) (*proto.UserInfoResponse, error) {
 	var user model.User
 	result := global.DB.Where(&user, req.Id).First(&user)
 	if result.Error != nil {
@@ -79,7 +79,7 @@ func (*UserServer) GetUserById(ctx context.Context, req *proto.IdRequest) (*prot
 	return &userInfoRes, nil
 }
 
-func (*UserServer) CreateUser(ctx context.Context, req *proto.CreateUserInfo) (*proto.UserInfoResponse, error) {
+func (*UserServer) CreateUser(ctx *context.Context, req *proto.CreateUserInfo) (*proto.UserInfoResponse, error) {
 	var user model.User
 	result := global.DB.Where(&model.User{
 		UserName: req.UserName,
@@ -106,7 +106,7 @@ func (*UserServer) CreateUser(ctx context.Context, req *proto.CreateUserInfo) (*
 	return &userInfoRes, nil
 }
 
-func (*UserServer) UpdateUser(ctx context.Context, req *proto.UpdateUserInfo) (*emptypb.Empty, error) {
+func (*UserServer) UpdateUser(ctx *context.Context, req *proto.UpdateUserInfo) (*emptypb.Empty, error) {
 	var user model.User
 	result := global.DB.Where(&user, req.Id).First(&user)
 	if result.Error != nil {
@@ -131,7 +131,7 @@ func (*UserServer) UpdateUser(ctx context.Context, req *proto.UpdateUserInfo) (*
 	return &empty.Empty{}, nil
 }
 
-func (*UserServer) CheckPassword(ctx context.Context, req *proto.PasswordCheckInfo) (*proto.CheckResponse, error) {
+func (*UserServer) CheckPassword(ctx *context.Context, req *proto.PasswordCheckInfo) (*proto.CheckResponse, error) {
 	err := bcrypt.CompareHashAndPassword([]byte(req.EncryptedPassword), []byte(req.Password))
 	if err != nil {
 		return &proto.CheckResponse{
