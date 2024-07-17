@@ -15,7 +15,8 @@ func main() {
 	Port := flag.Int("port", 50051, "端口号")
 	flag.Parse()
 	server := grpc.NewServer()
-	proto.RegisterUserServer(server, handler.UserServer{})
+	proto.RegisterUserServer(server, &handler.UserServer{})
+
 	listen, err := net.Listen("tcp", fmt.Sprintf("%s:%d", *Ip, *Port))
 	if err != nil {
 		panic("服务启动失败")

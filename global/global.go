@@ -17,7 +17,7 @@ var (
 )
 
 func init() {
-	dsn := "root:root@tcp(192.168.24.5:3306/go-blogqcs_uat?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8)"
+	dsn := "root:123456@tcp(192.168.24.5:3307)/go_blog?charset=utf8mb4&parseTime=True&loc=Local"
 
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags),
