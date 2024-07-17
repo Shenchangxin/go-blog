@@ -4,20 +4,26 @@ import (
 	"flag"
 	"fmt"
 	"github.com/hashicorp/consul/api"
+	uuid "github.com/satori/go.uuid"
 	"go-blog/global"
 	"go-blog/handler"
 	"go-blog/initialize"
 	"go-blog/proto"
+	"go-blog/utils"
+	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
 	"google.golang.org/grpc/health/grpc_health_v1"
 	"net"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func main() {
 
 	Ip := flag.String("ip", "0.0.0.0", "ip地址")
-	Port := flag.Int("port", 50051, "端口号")
+	Port := flag.Int("port", 0, "端口号")
 
 	//初始化
 	initialize.InitLogger()
@@ -27,6 +33,14 @@ func main() {
 	flag.Parse()
 	server := grpc.NewServer()
 	proto.RegisterUserServer(server, &handler.UserServer{})
+
+	//如果通过命令行指定的端口不是0的话就自动获取端口
+	if *Port == 0 {
+		port, err := utils.GetFreePort()
+		if err == nil {
+			*Port = port
+		}
+	}
 
 	listen, err := net.Listen("tcp", fmt.Sprintf("%s:%d", *Ip, *Port))
 	if err != nil {
@@ -43,7 +57,7 @@ func main() {
 		panic(err)
 	}
 	check := &api.AgentServiceCheck{
-		GRPC:                           fmt.Sprintf("192.168.44.15:50051"),
+		GRPC:                           fmt.Sprintf("192.168.44.15:%d", *Port),
 		Timeout:                        "5s",
 		Interval:                       "5s",
 		DeregisterCriticalServiceAfter: "15s",
@@ -52,7 +66,8 @@ func main() {
 	//生成注册对象
 	registration := new(api.AgentServiceRegistration)
 	registration.Name = global.ServerConfig.Name
-	registration.ID = global.ServerConfig.Name
+	serviceId := fmt.Sprintf("%s", uuid.NewV4())
+	registration.ID = serviceId
 	registration.Port = *Port
 	registration.Tags = []string{"scx", "user", "srv"}
 	registration.Address = "192.168.44.15"
@@ -69,4 +84,11 @@ func main() {
 		panic("服务启动失败")
 	}
 
+	quit := make(chan os.Signal)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+	if err := client.Agent().ServiceDeregister(serviceId); err != nil {
+		zap.S().Info("注销失败")
+	}
+	zap.S().Info("注销成功")
 }
