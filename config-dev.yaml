@@ -3,3 +3,14 @@ port: 50051
 redis:
   host: 192.168.24.5
   port: 6379
+
+mysql:
+  host: 192.168.24.5
+  port: 3307
+  user: root
+  password: 123456
+  dbname: go_blog
+
+consul:
+  host: 127.0.0.1
+  port: 8500
