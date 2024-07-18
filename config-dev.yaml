@@ -1,16 +1,8 @@
-name: user-srv
-port: 50051
-redis:
-  host: 192.168.24.5
-  port: 6379
 
-mysql:
-  host: 192.168.24.5
-  port: 3307
-  user: root
-  password: 123456
-  dbname: go_blog
-
-consul:
-  host: 127.0.0.1
-  port: 8500
+host: '192.168.44.15'
+port: 8848
+namespace: 'b788048c-f5c2-4738-9b4f-a476c35c40d3'
+user: 'nacos'
+password: 'nacos'
+dataId: 'user-srv.json'
+group: 'dev'
