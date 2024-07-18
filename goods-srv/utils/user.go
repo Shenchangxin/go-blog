@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"go-blog/model"
-	"go-blog/proto"
+	"go-blog/goods-srv/model"
+	"go-blog/goods-srv/proto"
 )
 
 func UserModelToResponse(user model.User) proto.UserInfoResponse {

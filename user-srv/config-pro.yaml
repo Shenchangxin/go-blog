@@ -1,0 +1,8 @@
+
+host: '192.168.44.15'
+port: 8848
+namespace: 'b788048c-f5c2-4738-9b4f-a476c35c40d3'
+user: 'nacos'
+password: 'nacos'
+dataId: 'user-srv.json'
+group: 'dev'

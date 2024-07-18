@@ -8,7 +8,7 @@ import (
 	"github.com/nacos-group/nacos-sdk-go/common/constant"
 	"github.com/nacos-group/nacos-sdk-go/vo"
 	"github.com/spf13/viper"
-	"go-blog/global"
+	"go-blog/goods-srv/global"
 	"go.uber.org/zap"
 )
 
@@ -22,9 +22,9 @@ func InitConfig() {
 	debug := GetEnvInfo("GO-BLOG")
 	configFilePrefix := "config"
 
-	configFileName := fmt.Sprintf("%s-pro.yaml", configFilePrefix)
+	configFileName := fmt.Sprintf("user-srv/%s-pro.yaml", configFilePrefix)
 	if debug {
-		configFileName = fmt.Sprintf("%s-dev.yaml", configFilePrefix)
+		configFileName = fmt.Sprintf("user-srv/%s-dev.yaml", configFilePrefix)
 	}
 	v := viper.New()
 	v.SetConfigFile(configFileName)

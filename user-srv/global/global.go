@@ -1,7 +1,7 @@
 package global
 
 import (
-	"go-blog/config"
+	"go-blog/user-srv/config"
 	"gorm.io/gorm"
 )
 

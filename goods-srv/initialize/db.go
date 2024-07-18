@@ -2,7 +2,7 @@ package initialize
 
 import (
 	"fmt"
-	"go-blog/global"
+	"go-blog/goods-srv/global"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
