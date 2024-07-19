@@ -32,7 +32,7 @@ func main() {
 
 	flag.Parse()
 	server := grpc.NewServer()
-	proto.RegisterUserServer(server, &handler.UserServer{})
+	proto.RegisterGoodsServer(server, &handler.GoodsServer{})
 
 	//如果通过命令行指定的端口不是0的话就自动获取端口
 	if *Port == 0 {
@@ -69,7 +69,7 @@ func main() {
 	serviceId := fmt.Sprintf("%s", uuid.NewV4())
 	registration.ID = serviceId
 	registration.Port = *Port
-	registration.Tags = []string{"scx", "user", "srv"}
+	registration.Tags = []string{"scx", "goods", "srv"}
 	registration.Address = "192.168.44.15"
 	registration.Check = check
 

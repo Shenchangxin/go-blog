@@ -22,9 +22,9 @@ func InitConfig() {
 	debug := GetEnvInfo("GO-BLOG")
 	configFilePrefix := "config"
 
-	configFileName := fmt.Sprintf("user-srv/%s-pro.yaml", configFilePrefix)
+	configFileName := fmt.Sprintf("goods-srv/%s-pro.yaml", configFilePrefix)
 	if debug {
-		configFileName = fmt.Sprintf("user-srv/%s-dev.yaml", configFilePrefix)
+		configFileName = fmt.Sprintf("goods-srv/%s-dev.yaml", configFilePrefix)
 	}
 	v := viper.New()
 	v.SetConfigFile(configFileName)
