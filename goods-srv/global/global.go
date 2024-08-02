@@ -1,6 +1,7 @@
 package global
 
 import (
+	"github.com/olivere/elastic/v7"
 	"go-blog/goods-srv/config"
 	"gorm.io/gorm"
 )
@@ -9,6 +10,7 @@ var (
 	DB           *gorm.DB
 	ServerConfig *config.ServerConfig = &config.ServerConfig{}
 	NacosConfig  *config.NacosConfig  = &config.NacosConfig{}
+	EsClient     *elastic.Client
 )
 
 //func init() {

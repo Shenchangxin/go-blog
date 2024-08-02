@@ -14,6 +14,11 @@ type ConsulConfig struct {
 	Port int    `mapstructure:"port" json:"port"`
 }
 
+type EsConfig struct {
+	Host string `mapstructure:"host" json:"host"`
+	Port int    `mapstructure:"port" json:"port"`
+}
+
 type NacosConfig struct {
 	Host      string `mapstructure:"host" json:"host"`
 	Port      uint64 `mapstructure:"port" json:"port"`
@@ -28,4 +33,5 @@ type ServerConfig struct {
 	Name         string       `mapstructure:"name" json:"name"`
 	ConsulConfig ConsulConfig `mapstructure:"consul" json:"consul"`
 	MysqlConfig  MysqlConfig  `mapstructure:"mysql" json:"mysql"`
+	EsConfig     EsConfig     `mapstructure:"es" json:"es"`
 }
